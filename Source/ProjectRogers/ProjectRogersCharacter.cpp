@@ -69,6 +69,9 @@ void AProjectRogersCharacter::SetupPlayerInputComponent(class UInputComponent* P
 
 		//Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AProjectRogersCharacter::Look);
+
+		// Interact
+		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Triggered, this, &AProjectRogersCharacter::Interact);
 	}
 }
 
@@ -97,6 +100,10 @@ void AProjectRogersCharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+void AProjectRogersCharacter::Interact(const FInputActionValue& Value) {
+	
 }
 
 void AProjectRogersCharacter::SetHasRifle(bool bNewHasRifle)
