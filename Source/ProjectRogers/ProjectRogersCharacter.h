@@ -13,6 +13,7 @@ class USceneComponent;
 class UCameraComponent;
 class UAnimMontage;
 class USoundBase;
+class IInteractionInterface;
 
 UCLASS(config=Game)
 class AProjectRogersCharacter : public ACharacter
@@ -45,9 +46,11 @@ class AProjectRogersCharacter : public ACharacter
 	
 public:
 	AProjectRogersCharacter();
+	virtual void Tick(float DeltaTime) override;
 
 protected:
 	virtual void BeginPlay();
+	
 
 public:
 		
@@ -87,6 +90,15 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
+	// InteractionTraces
+	UPROPERTY(EditAnywhere)
+	float InteractionTraceLength = 100.f;
+
+	UPROPERTY(EditAnywhere)
+	float InteractionTraceRadius = 40.f;
+
+	UPROPERTY(VisibleAnywhere)
+	AActor* CurrentInteractable;
 
 };
 
