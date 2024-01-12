@@ -13,6 +13,7 @@ class USceneComponent;
 class UCameraComponent;
 class UAnimMontage;
 class USoundBase;
+class IInteractionInterface;
 
 UCLASS(config=Game)
 class AProjectRogersCharacter : public ACharacter
@@ -39,12 +40,17 @@ class AProjectRogersCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	class UInputAction* MoveAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	class UInputAction* InteractAction;
+
 	
 public:
 	AProjectRogersCharacter();
+	virtual void Tick(float DeltaTime) override;
 
 protected:
 	virtual void BeginPlay();
+	
 
 public:
 		
@@ -71,6 +77,8 @@ protected:
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 
+	void Interact(const FInputActionValue& Value);
+
 protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
@@ -82,6 +90,15 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
+	// InteractionTraces
+	UPROPERTY(EditAnywhere)
+	float InteractionTraceLength = 100.f;
+
+	UPROPERTY(EditAnywhere)
+	float InteractionTraceRadius = 40.f;
+
+	UPROPERTY(VisibleAnywhere)
+	AActor* CurrentInteractable;
 
 };
 
